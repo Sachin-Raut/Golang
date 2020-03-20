@@ -32,7 +32,17 @@ func main() {
 	fmt.Println("for with single condition")
 	a := 1
 	for a < 5 {
-		fmt.Println(a)
+		fmt.Println("a is", a)
 		a++
+	}
+
+	b := 1
+
+	for {
+		if b > 5 {
+			break
+		}
+		fmt.Println("b is", b)
+		b++
 	}
 }
