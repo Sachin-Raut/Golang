@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+//for example
 func main() {
 
 	/*
