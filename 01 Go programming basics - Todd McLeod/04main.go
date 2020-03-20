@@ -45,4 +45,17 @@ func main() {
 		fmt.Println("b is", b)
 		b++
 	}
+
+	c := 1
+
+	for {
+		c++
+		if c > 100 {
+			break
+		}
+		if c%2 == 0 {
+			continue
+		}
+		fmt.Println("c is", c)
+	}
 }
