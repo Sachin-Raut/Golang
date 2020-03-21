@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-//switch example hi
+//switch example
 func main() {
 	switch "Mumbai" {
 	case "Pune", "Delhi":
