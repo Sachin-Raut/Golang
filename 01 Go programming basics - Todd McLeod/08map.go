@@ -21,4 +21,18 @@ func main(){
 	if _, ok := m["Mumbai"]; ok {
 		fmt.Println("Mumbai exists")
 	}
+
+	//add element
+
+	m["Bangalore"] = 20
+
+	for key, value := range m {
+		fmt.Println(key,value)
+	}
+
+	//delete element
+
+	delete(m,"Mumbai")
+
+	fmt.Println(m)
 }
