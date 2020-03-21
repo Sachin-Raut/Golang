@@ -29,6 +29,18 @@ func main(){
 
 	fmt.Println("a after appending b",a)
 
+
+
+	/*
+	1. Slice is built on top of an array
+	2. Slice is dynamic, their size is dynamic
+	3. When slice grows, the new array is created & then all the values are copied 
+	into the new array & old ones are thrown away. This takes some processing power
+	4. If you know how many elements you can store, then you can use "make()" to
+	automatically make the underlying array to be big enough size to hold all the 
+	elements you want to store. This saves processing power of the compiler.
+	*/
+
 	y := make([]int, 10, 100)
 
 	fmt.Println("Length of y is ",len(y))
