@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+//functions are first class citizens
+
 func main(){
 	s := foo("Mumbai")
 	fmt.Println(s)
