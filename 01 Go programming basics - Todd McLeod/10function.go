@@ -27,9 +27,9 @@ func name()(string, string){
 }
 
 func bar(x ...int){
-	avg := 0
+	sum := 0
 	for _,v := range x {
-		avg += v
+		sum += v
 	}
-	fmt.Println(avg)
+	fmt.Println(sum)
 }
