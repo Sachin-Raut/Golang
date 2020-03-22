@@ -15,6 +15,14 @@ func main(){
 
 	b := []int{4,6,8}
 	bar(b...)
+
+	/*
+	if you are passing multiple parameters, 
+	then variadic parameter should be the last parameter
+
+	func city(a string, b ...int) this is correct
+	func city(x ...int, y string) this is wrong
+	*/
 }
 
 func foo(s string) string {
