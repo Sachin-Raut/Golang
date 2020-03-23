@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-//panic, defer & recovery
+//panic, defer & recovery example
 
 func main() {
 	f()
