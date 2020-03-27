@@ -18,20 +18,28 @@ import (
 
 func main() {
 	
-	ch := make(chan int)
-
+	//unbuffered channel
+	ch := make(chan int)  //bidirectional channel
 	go func(){
-		ch <- 20
+		ch <- 20          //sending value to channel (send channel)
 	}()
+	fmt.Println(<- ch)   //receiving value from channel (receive channel)
 
-	fmt.Println(<- ch)
 
-	message := make(chan string)
-
+	//unbuffered channel
+	message := make(chan string) //bidirectional channel
 	go func(){
-		time.Sleep(time.Second)
-		message <- "hi"
+		time.Sleep(time.Second)  
+		message <- "hi"         //sending value to channel (send channel)
 	}()
+	fmt.Println(<- message)     //receiving value from channel (receive channel)
 
-	fmt.Println(<- message)
+
+	//buffered channel. Here u can send only 2 values
+	c := make(chan int, 2)   //bidirectional channel
+	c <- 15					 //sending value to channel (send channel)
+	fmt.Println(<-c)		 //receiving value from channel (receive channel)
+
+	c <- 200
+	fmt.Println(<-c)
 }
