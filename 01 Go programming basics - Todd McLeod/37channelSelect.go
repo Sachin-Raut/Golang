@@ -1,5 +1,17 @@
 // we will see how to range over a channel
 
+
+/*
+send-only channel
+ch := make(chan <- int, 2)
+
+receive-only channel
+ch := make(<- chan int, 2)
+
+general channel
+ch := make(chan int)
+*/
+
 package main
 
 import "fmt"
