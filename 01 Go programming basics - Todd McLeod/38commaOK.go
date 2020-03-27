@@ -14,7 +14,7 @@ func main() {
 	fmt.Println("about to exit")
 }
 
-//send channel
+//send channel.
 func send(even, odd chan <- int, quit chan <- bool) {
 	for i := 0; i < 10; i++ {
 		if i%2 == 0 {
@@ -26,7 +26,7 @@ func send(even, odd chan <- int, quit chan <- bool) {
 	close(quit)
 }
 
-//receive channel
+//receive channel.
 func receive(even, odd <- chan int, quit <- chan bool) {
 	for {
 		select {
