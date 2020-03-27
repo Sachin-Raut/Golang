@@ -29,6 +29,7 @@ func main() {
 	for i := 0; i < gs; i++ {
 
 		go func(){
+
 			mu.Lock()
 
 			v := counter
@@ -38,6 +39,7 @@ func main() {
 
 			mu.Unlock()
 			wg.Done()
+			
 		}()
 		fmt.Println("Goroutines -",runtime.NumGoroutine())
 	}
