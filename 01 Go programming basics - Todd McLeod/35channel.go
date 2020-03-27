@@ -11,7 +11,10 @@
 
 package main 
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
 	
@@ -22,4 +25,13 @@ func main() {
 	}()
 
 	fmt.Println(<- ch)
+
+	message := make(chan string)
+
+	go func(){
+		time.Sleep(time.Second)
+		message <- "hi"
+	}()
+
+	fmt.Println(<- message)
 }
