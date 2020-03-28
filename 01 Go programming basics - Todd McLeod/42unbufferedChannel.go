@@ -7,16 +7,24 @@ import (
 
 func main(){
 	ch := make(chan int)
+	a := make(chan int)
 
 	go func(){
 		p := <- ch //(receive operation) this is blocking call
 
 		//now perform another tasks
+		time.Sleep(time.Second)
+		fmt.Println(p)
+		fmt.Println("hi")
+
+		a <- 15
+
 	}()
 
 	time.Sleep(2 * time.Second)
 
 	ch <- 20 //(send operation)
+	fmt.Println(<-a)
 
 }
 
