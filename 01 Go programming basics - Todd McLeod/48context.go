@@ -36,6 +36,6 @@ func receive(c <- chan int) {
 1. as soon as value is sent over channel in "generate function", it is returned
 2. that returned value is sent to "receive func" & it is printed.
 
-in nutshell, as soon as value is sent, its printed.
+So in nutshell, as soon as value is sent, its printed.
 
 */
