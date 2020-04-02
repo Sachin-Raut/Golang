@@ -7,8 +7,6 @@ import (
 	"os"
 )
 
-type deck []string
-
 //example of multiple return values
 
 func main() {
@@ -41,6 +39,7 @@ func main() {
 		Exit terminates the program immediately, "deferred functions" are not executed
 		*/
 	}
+	fmt.Println("byte slice =",byteSlice)
 	normalString := string(byteSlice)
 	fmt.Println(normalString)
 
