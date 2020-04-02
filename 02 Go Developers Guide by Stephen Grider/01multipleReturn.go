@@ -24,10 +24,10 @@ func main() {
 	 fmt.Println(slice2)
 
 	 //save data to file "city_name" on hard drive
-	 ioutil.WriteFile("city_name", []byte("abcd"), 0666)
+	 ioutil.WriteFile("01multiple", []byte("abcd"), 0666)
 
 	 //read data from file "city_name" on hard drive
-	 byteSlice, err := ioutil.ReadFile("city_name")
+	 byteSlice, err := ioutil.ReadFile("01multiple")
 	if err != nil {
 		fmt.Println("Error -", err)
 		os.Exit(1)
