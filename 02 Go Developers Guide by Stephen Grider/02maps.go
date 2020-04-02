@@ -23,7 +23,7 @@ MAPS
 
 
 STRUCT
-1. it's a value type
-2. keys aren't indexed
-3. values can be of different types
+1. it's a value type.
+2. keys aren't indexed.
+3. values can be of different types.
 */
