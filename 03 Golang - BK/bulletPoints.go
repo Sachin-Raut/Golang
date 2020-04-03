@@ -14,11 +14,22 @@ Reading from main memory is slow (fourth top)
 
 6. Let's say you have 4 cores and want to run code on 2 cores, then do as follows.
 
-runtime.GOMAXPROCS(2)
+func init(){
 
-7. WaitGroup is used to manage concurrency
+	runtime.GOMAXPROCS(2)
 
-5. Benchmark
+}
+
+7. WaitGroup is used to manage concurrency 
+
+wg.Wait() - provides guarantee about synchronisation
+(wait() orders go scheduler to wait & scheduler has to obey the orders.)
+
+runtime.Gosched() - doesn't provide guarantee about synchronisation 
+(gosched() requests go scheduler to wait, & scheduler may or may not accept the request. 
+Hence gosched isn't guaranteedThis should mostly be used while running tests)
+
+8. Benchmark
 
 $ go test -run none -bench . -benchtime 3s
 
