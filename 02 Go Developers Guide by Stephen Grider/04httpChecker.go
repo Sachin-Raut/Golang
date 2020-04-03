@@ -28,10 +28,10 @@ func checkLink(link string){
 
 /*
 
-1.currently our program is executing in sequential order & hence there's a delay 
+1.Currently our program is executing in sequential order & hence there's a delay 
 in executing the entire program.
-2.this is wrong approach. Let's use goroutines to execute multiple links simultaneously
-3.concurrency isn't parallelism
-4.concurrency doesn't guarantee parallelism
+2.This is wrong approach. Let's use goroutines to execute multiple links simultaneously
+3.Concurrency isn't parallelism
+4.Concurrency doesn't guarantee parallelism
 
 */
