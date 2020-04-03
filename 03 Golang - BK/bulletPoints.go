@@ -27,7 +27,14 @@ wg.Wait() - provides guarantee about synchronisation
 
 runtime.Gosched() - doesn't provide guarantee about synchronisation 
 (gosched() requests go scheduler to wait, & scheduler may or may not accept the request. 
-Hence gosched isn't guaranteedThis should mostly be used while running tests)
+Hence gosched isn't guaranteed. This should mostly be used while running tests)
+
+8. When 2 or more goroutines accesses variable that is
+same memory location at a same time then its a data race.
+
+9. To solve data race, we use "mutex" or "atomic instructions".
+
+10. Data race is detected using ($ go run -race main.go)
 
 8. Benchmark
 
