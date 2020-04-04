@@ -40,5 +40,11 @@ func TestDownload(t *testing.T){
 1. $ go test
 2. $ go test -v
 3. $ go test -run Down
+4. $ go test -cover (shows how much code is covered by tests)
+5. $ go test -coverprofile c.out (this generates "c.out" file, & it contains profiling information
+for the cover report)
+6. to view c.out file in browser, execute following command
+
+$ go tool cover -html c.out
 
 */
