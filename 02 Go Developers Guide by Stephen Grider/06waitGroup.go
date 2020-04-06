@@ -6,7 +6,7 @@ import (
 )
 
 
-//sharing memory
+//communication by sharing memory
 func main(){
 	var wg sync.WaitGroup
 
