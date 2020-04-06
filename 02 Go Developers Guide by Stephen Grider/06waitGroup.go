@@ -25,7 +25,6 @@ func printEven(x int, wg *sync.WaitGroup){
 
 /*
 
-1. in this example, our goroutines are communicating by sharing memory which is wrong.
 2. goroutines should communicate via channels
 3. channels are like pipes with 2 ends. Messages go in one end when sent, & comes out 
 at the other end when requested by the receiver.
