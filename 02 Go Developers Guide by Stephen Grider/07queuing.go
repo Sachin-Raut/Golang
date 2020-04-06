@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//queuing
 func main(){
 	ch := make(chan string)
 
