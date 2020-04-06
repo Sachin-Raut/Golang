@@ -5,6 +5,8 @@ import (
 	"sync"
 )
 
+
+//sharing memory
 func main(){
 	var wg sync.WaitGroup
 
