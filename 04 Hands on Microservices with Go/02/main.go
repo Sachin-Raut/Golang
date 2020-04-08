@@ -1,9 +1,28 @@
+
+/*
+write a microservice that receives timesZone abbreviation & returns the current time 
+at that timesZone
+*/
+
 package main
 
 import (
 	"fmt"
+	"time"
 	"net/http"
+	"encoding/json"
 )
+
+var conversionMap = map[string]string {
+	"IST":"+5h30m",
+	"GMT":"+2h",
+	"ART":"-3h",
+}
+
+type timeZoneConversion struct {
+	TimeZone string
+	CurrentTime string
+}
 
 func main(){
 	http.HandleFunc("/",handler)
@@ -13,6 +32,25 @@ func main(){
 }
 
 func handler(w http.ResponseWriter, r *http.Request){
+	timeZone := r.URL.Query().Get("tz")
+	timeDifference, _ := conversionMap[timeZone]
+	currentTimeConverted, _ := getCurrentTimeByTimeDifference(timeDifference)
+
+	tzc := new(timeZoneConversion)
+	tzc.CurrentTime = currentTimeConverted
+	tzc.TimeZone = timeZone
+
+	jsonResponse, _ := json.Marshal(tzc)
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Hello World Sachin")
+	fmt.Fprintf(w, string(jsonResponse))
+}
+
+func getCurrentTimeByTimeDifference(timeDifference string)(string, error){
+	now := time.Now().UTC()
+	difference, err := time.ParseDuration(timeDifference)
+	if err != nil {
+		return "", err
+	}
+	now = now.Add(difference)
+	return now.Format("15:04:05"),nil
 }
