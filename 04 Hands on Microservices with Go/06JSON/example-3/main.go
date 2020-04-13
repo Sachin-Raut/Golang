@@ -19,6 +19,7 @@ func main() {
 	song := &Song{
 		Band:        "Blur",
 		Song:        "Coffe & Tv",
+		Label:		 "",
 		ReleaseDate: time.Date(1999, 6, 28, 0, 0, 0, 0, time.UTC),
 		Producer:    "William Orbit",
 	}
@@ -26,3 +27,10 @@ func main() {
 	jsonSong, _ := json.Marshal(song)
 	fmt.Println(string(jsonSong))
 }
+
+/*
+
+Producer will always be omitted
+Label will be omitted, if its empty
+
+*/
