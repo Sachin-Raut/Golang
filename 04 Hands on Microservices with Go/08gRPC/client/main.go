@@ -1,3 +1,14 @@
+
+
+//documents -> GoWorkspace -> src -> hands-on-microservices -> 08gRPC -> client -> main.go
+
+/* 
+
+//this creates greet.pb.go file
+$ protoc greet.proto --go_out=plugins=grpc:.
+
+*/
+
 package main
 
 import (
@@ -8,7 +19,7 @@ import (
 
 	"context"
 
-	pb "github.com/PacktPublishing/Hands-on-Microservices-with-Go/section-3/video-3/proto"
+	pb "hands-on-microservices/08gRPC/proto"
 	"google.golang.org/grpc"
 )
 
@@ -26,6 +37,9 @@ func main() {
 	defer conn.Close()
 	c := pb.NewFibonacciClient(conn)
 
+
+	log.Println("total length =",len(os.Args))
+	log.Println("1st arg =",os.Args[1])
 	// Contact the server and print out its response.
 	num := defaultNumber
 	if len(os.Args) > 1 {

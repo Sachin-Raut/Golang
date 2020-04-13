@@ -1,3 +1,13 @@
+
+//documents -> GoWorkspace -> src -> hands-on-microservices -> 08gRPC -> server -> main.go
+
+/* 
+
+//this creates greet.pb.go file
+$ protoc greet.proto --go_out=plugins=grpc:.
+
+*/
+
 package main
 
 import (
@@ -8,7 +18,7 @@ import (
 
 	"context"
 
-	pb "github.com/PacktPublishing/Hands-on-Microservices-with-Go/section-3/video-3/proto"
+	pb "hands-on-microservices/08gRPC/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
