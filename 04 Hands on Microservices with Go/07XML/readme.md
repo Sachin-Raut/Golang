@@ -1,9 +1,5 @@
-# Packt Publishing - Hands on Microservices with Go
-# Section 3 - Video 2 - Working with XML
+Working with XML
 
-## Apologies!
-
-Emiliano says: "Sorry about the coughing on the video, I had some health issues during the recording of this video."
 
 ## Learn More
 
