@@ -18,8 +18,9 @@ VALUES
 
 
 CREATE TABLE phonenumbers (
-	ID SERIAL PRIMARY KEY, //auto increment
-	PHONE TEXT NOT NULL
+	ID SERIAL PRIMARY KEY NOT NULL, //auto increment
+	PHONE TEXT NOT NULL,
+	EMP_ID INT references employees(ID)
 );
 
 */
