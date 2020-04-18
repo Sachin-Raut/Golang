@@ -1,3 +1,13 @@
+
+/*
+
+1.To generate fibonacci.pb.go execute following command.
+2.In terminal, navigate to "proto" folder
+3. $ protoc fibonacci.proto --go_out=plugins=grpc:.
+
+*/
+
+
 syntax = "proto3";
 
 option java_multiple_files = true;
