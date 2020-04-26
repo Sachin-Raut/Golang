@@ -1,0 +1,55 @@
+/*
+
+1.To generate wta.pb.go execute following command.
+2.In terminal, navigate to "proto" folder
+3. $ protoc wta.proto --go_out=plugins=grpc:.
+
+*/
+
+
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package WTA;
+
+message Player {
+  uint32 id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  bool isRightHanded = 4;
+  google.protobuf.Timestamp birthDate = 5;
+  string countryCode = 6;
+}
+
+message Ranking {
+  uint32 playerId = 1;
+  google.protobuf.Timestamp rankingDate = 2;
+  uint32 ranking = 3;
+  float rankingPoints = 4;
+}
+
+message PlayerWithRanking {
+  Player player = 1;
+  Ranking ranking = 2;
+}
+
+message PlayerIdRequest {
+  uint32 playerId = 1;
+}
+
+message PlayersReply {
+  repeated Player player = 1;
+}
+
+service WTA {
+  //unary
+  rpc GetPlayerWithHighestRanking (PlayerIdRequest) returns (PlayerWithRanking) {}
+
+  //server streaming
+  rpc GetRankingsByPlayerId (PlayerIdRequest) returns (stream Ranking) {}
+
+  //client streaming
+  rpc GetPlayers (stream PlayerIdRequest) returns (PlayersReply) {}
+}
+
