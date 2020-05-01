@@ -1,14 +1,26 @@
 package main
 
 import (
+
+	"database/sql"
+	_ "github.com/lib/pq"
 	"log"
-	"strconv"
+	"fmt"
+	// "strconv"
 	"net/http"
 	"encoding/json"
 	"github.com/gorilla/mux"
 )
 
-//Book is
+
+func logFatal(err error){
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+
+// Book is
 type Book struct {
 	ID int `json:"id"`
 	Title string `json:"title"`
@@ -18,15 +30,32 @@ type Book struct {
 
 var books []Book
 
+const (
+	//sslmode can be disable or verify-full
+	host     = "satao.db.elephantsql.com"
+	port     = 5432
+	user     = "bgligpzc"
+	password = "cm_uF7PbzYycl39koGWlaCLAEd6mnuF9"
+	dbname   = "bgligpzc"
+	sslmode  = "verify-full"
+	// sslmode  = "disable" 
+  )
+
+
+var db *sql.DB
+var err error
+
 func main(){
 
-	books = append(books,
-	Book{ID:1, Title: "book 1", Author: "Author 1", Year: "2010"},
-	Book{ID:2, Title: "book 2", Author: "Author 2", Year: "2010"},
-	Book{ID:3, Title: "book 3", Author: "Author 3", Year: "2010"},
-	Book{ID:4, Title: "book 4", Author: "Author 4", Year: "2010"},
-	Book{ID:5, Title: "book 5", Author: "Author 5", Year: "2010"},
-)
+	connStr := fmt.Sprintf("host=%s port=%d user=%s "+
+    "password=%s dbname=%s sslmode=%s",
+	host, port, user, password, dbname, sslmode)
+	
+	db, err = sql.Open("postgres", connStr)
+
+	logFatal(err)
+
+	db.Ping()
 
 	router := mux.NewRouter()
 
@@ -36,43 +65,66 @@ func main(){
 	router.HandleFunc("/books",updateBook).Methods("PUT")
 	router.HandleFunc("/books/{id}",removeBook).Methods("DELETE")
 
+	fmt.Println("Starting the server")
 	//start the server
 	log.Fatal(http.ListenAndServe(":8000", router))
 }
 
+
 func getBooks(w http.ResponseWriter, r *http.Request){
 	log.Println("Get all books is called")
 
+	var book Book
+
+	books = []Book{}
+
+	rows, err := db.Query("select * from booksTable")
+
+	logFatal(err)
+	defer rows.Close()
+
+	for rows.Next(){
+		err := rows.Scan(&book.ID, &book.Title, &book.Author, &book.Year)
+		logFatal(err)
+		books = append(books, book)
+	}
+
 	json.NewEncoder(w).Encode(books)
 }
+
 
 func getBook(w http.ResponseWriter, r *http.Request){
 	log.Println("getBook")
 
+	var book Book
 	params := mux.Vars(r)
 
-	log.Println(params)
+	rows := db.QueryRow("select * from booksTable where id=$1", params["id"])
 
-	i, _ := strconv.Atoi(params["id"])
+	err := rows.Scan(&book.ID, &book.Title, &book.Author, &book.Year)
 
-	for _, book := range books {
-		if book.ID == i {
-			json.NewEncoder(w).Encode(&book)
-		}
-	}
+	logFatal(err)
+
+	json.NewEncoder(w).Encode(book)
 }
+
 
 func addBook(w http.ResponseWriter, r *http.Request){
 	log.Println("addBook")
 	var book Book
-	
+	var bookID int
+
 	_ = json.NewDecoder(r.Body).Decode(&book)
+
+	err = db.QueryRow("insert into booksTable (title, author, year) values ($1,$2,$3) returning id;", book.Title, book.Author, book.Year).Scan(&bookID)
+
+	logFatal(err)
 
 	//return response containing all books
 
-	books = append(books, book)
-	json.NewEncoder(w).Encode(books)
+	json.NewEncoder(w).Encode(bookID)
 }
+
 
 func updateBook(w http.ResponseWriter, r *http.Request){
 	log.Println("updateBook")
@@ -81,31 +133,30 @@ func updateBook(w http.ResponseWriter, r *http.Request){
 
 	_ = json.NewDecoder(r.Body).Decode(&book)
 
-	for i, item := range books {
-		if item.ID == book.ID {
-			books[i] = book
-		}
-	}
-	//lets return all the books
+	result, err := db.Exec("update booksTable set title = $1, author = $2, year = $3 where id = $4 returning id", &book.Title, &book.Author, &book.Year, &book.ID)
 
-	json.NewEncoder(w).Encode(books)
+	rowsUpdated, err := result.RowsAffected()
+	logFatal(err)
+
+	//lets return the number of rowsAffected
+	json.NewEncoder(w).Encode(rowsUpdated)
 }
+
 
 func removeBook(w http.ResponseWriter, r *http.Request){
 	log.Println("removeBook")
 
 	params := mux.Vars(r)
 
-	//converts string to int
+	result, err := db.Exec("delete from booksTable where id = $1", params["id"])
 
-	id, _ := strconv.Atoi(params["id"])
+	logFatal(err)
 
-	for i, item := range books {
-		if item.ID == id {
-			books = append(books[:i], books[i+1:]...)
-		}
-	}
+	rowsDeleted, err := result.RowsAffected()
 
-	//let's return all the books
-	json.NewEncoder(w).Encode(books)
+	logFatal(err)
+
+	//let's return the number of deleted
+	json.NewEncoder(w).Encode(rowsDeleted)
 }
+
