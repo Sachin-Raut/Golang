@@ -13,7 +13,17 @@ func main() {
 
 	mux.HandleFunc("/", myHandlerFunc)
 
-	log.Fatal(http.ListenAndServe(":8080", AddSessionData(mux)))
+	// log.Fatal(http.ListenAndServe(":8080", AddSessionData(mux)))
+
+	srv := &http.Server {
+		Addr : ":8080",
+		ReadTimeout : 10 * time.Second,
+		WriteTimeout : 10 * time.Second,
+		MaxHeaderBytes : 1 << 20,		
+	}
+
+	log.Fatal(srv.ListenAndServe(":8080", AddSessionData(mux)))
+	
 }
 
 type key int
