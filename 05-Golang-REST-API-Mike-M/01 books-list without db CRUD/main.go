@@ -4,6 +4,7 @@ package main
 
 import (
 	"log"
+	"time"
 	"strconv"
 	"net/http"
 	"encoding/json"
@@ -39,7 +40,20 @@ func main(){
 	router.HandleFunc("/books/{id}",removeBook).Methods("DELETE")
 
 	//start the server
-	log.Fatal(http.ListenAndServe(":8000", router))
+	// log.Fatal(http.ListenAndServe(":8000", router))
+
+	srv := &http.Server {
+		Handler : router,
+		Addr : ":8000",
+
+		//enforce timeouts for servers
+		ReadTimeout : 10 * time.Second,
+		WriteTimeout : 10 * time.Second,
+			
+	}
+
+	log.Fatal(srv.ListenAndServe())
+
 }
 
 func getBooks(w http.ResponseWriter, r *http.Request){
