@@ -10,7 +10,16 @@ import (
 
 func main() {
 	http.HandleFunc("/", myHandlerFunc)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	// log.Fatal(http.ListenAndServe(":8080", nil))
+
+	srv := &http.Server {
+		Addr : ":8080",
+		ReadTimeout : 10 * time.Second,
+		WriteTimeout : 10 * time.Second,
+		MaxHeaderBytes : 1 << 20,		
+	}
+
+	log.Fatal(srv.ListenAndServe())
 }
 
 func myHandlerFunc(w http.ResponseWriter, r *http.Request) {
