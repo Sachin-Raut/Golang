@@ -82,7 +82,17 @@ func main() {
 
 	//start server
 	fmt.Println("Started server")
-	log.Fatal(http.ListenAndServe(":8000", router))
+	// log.Fatal(http.ListenAndServe(":8000", router))
+
+	srv := &http.Server {
+		Handler : router,
+		Addr : ":8000",
+
+		//enforce timeouts for servers
+		ReadTimeout : 10 * time.Second,
+		WriteTimeout : 10 * time.Second,			
+	}
+	log.Fatal(srv.ListenAndServe())
 }
 
 //signup is
