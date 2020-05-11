@@ -10,7 +10,7 @@ func main(){
 	http.HandleFunc("/",handler)
 
 	//start the server
-	// http.ListenAndServe("localhost:8080", nil)
+	// http.ListenAndServe("localhost:8000", nil)
 
 	srv := &http.Server {
 		Addr : ":8000",
