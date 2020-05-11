@@ -36,10 +36,21 @@ func main(){
 	http.HandleFunc("/convert", loggingMiddleware(handler))
 
 	http.HandleFunc("/", loggingMiddleware(notFoundHandler))
-	log.Printf("%s - starting server on port : 8080")
+	log.Printf("%s - starting server on port : 8000")
 	
 	//start the server
-	log.Fatal(http.ListenAndServe("localhost:8080", nil))
+	// log.Fatal(http.ListenAndServe("localhost:8000", nil))
+
+
+	srv := &http.Server {
+		Addr : ":8000",
+		ReadTimeout : 10 * time.Second,
+		WriteTimeout : 10 * time.Second,
+		MaxHeaderBytes : 1 << 20,		
+	}
+
+	log.Fatal(srv.ListenAndServe())
+
 }
 
 func notFoundHandler(w http.ResponseWriter, r *http.Request){
