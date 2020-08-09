@@ -1,4 +1,6 @@
 How to create/add modules
+(dependency management)
+
 
 1. create a repo (for eg. "bookstore-users-api") on github
 2. copy its https path (https://github.com/Sachin-Raut/bookstore-users-api.git)
