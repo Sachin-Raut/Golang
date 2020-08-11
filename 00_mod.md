@@ -14,7 +14,7 @@ For "bookstore-users-api" github repo, my https path is
 8. $ go mod init github.com/Sachin-Raut/bookstore-users-api 
 9. This automatically generates "go.mod" file in your local project file (Desktop/bookstore-users-api )
 10. Now if you open your project, your IDE will show you "go.mod"
-11. Now when you any new dependency in your project, "go.mod" file will keep track of that dependency.
+11. Now when you add any new dependency in your project, "go.mod" file will keep track of that dependency.
 12. And 1 more file "go.sum" will be created when you add new dependency to the project.
 13. Remember never touch/edit "go.sum" file.
 14. For beginner this info is enough to start a new Go project.
