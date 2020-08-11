@@ -3,7 +3,7 @@ How to create/add modules
 
 
 1. create a repo on github (for eg. "bookstore-users-api") 
-2. copy its https path. Click on "Code" button, and there will be "SSH" & "HTTPS" links
+2. copy its https path. Click on "Code" button, and there will be "SSH" & "HTTPS" links. 
 For "bookstore-users-api" github repo, my https path is as follows
  (https://github.com/Sachin-Raut/bookstore-users-api.git)
 3. Lets say u want to create a "bookstore-users-api" on Desktop
